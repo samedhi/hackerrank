@@ -1,6 +1,6 @@
-(ns hackerrank.week-of-code22.matching-sets)
+(ns hackerrank.week-of-code-22.matching-sets)
 
-(letfn [(seq-intersection [xs ys]
+#_(letfn [(seq-intersection [xs ys]
           (loop [[x & xs :as xso] xs
                  [y & ys :as yso] ys
                  acc []]

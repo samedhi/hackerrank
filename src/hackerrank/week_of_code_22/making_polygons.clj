@@ -1,6 +1,6 @@
-(ns hackerrank.week-of-code22.making-polygons)
+(ns hackerrank.week-of-code-22.making-polygons)
 
-(let [_ (read-line) ;; Ignored
+#_(let [_ (read-line) ;; Ignored
       [a & ar :as ax] (->> (clojure.string/split (read-line) #"\s+")
                            (map #(Integer/parseInt %))
                            sort

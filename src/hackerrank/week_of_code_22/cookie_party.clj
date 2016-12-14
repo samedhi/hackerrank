@@ -1,6 +1,6 @@
-(ns hackerrank.week-of-code22.cookie-party)
+(ns hackerrank.week-of-code-22.cookie-party)
 
-(let [[n m] (->> (clojure.string/split (read-line) #"\s+")
+#_(let [[n m] (->> (clojure.string/split (read-line) #"\s+")
                  (map #(Integer/parseInt %)))
       r (rem m n)
       d (- n r)]
