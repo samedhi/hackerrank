@@ -18,7 +18,7 @@
             (recur (inc i))
             false))))))
 
-(deftest example-test []
+(deftest funny-string-test []
   (is (= true (funny? "acxz")))
   (is (= false (funny? "bcxz"))))
 
