@@ -6,14 +6,6 @@
    [clojure.string :refer [join]]
    [clojure.test :as test :refer [deftest testing is]]))
 
-(defn add-sorted [ls v]
-  (loop [acc []
-         [l :as ls] ls]
-    #_(println acc ls)
-    (if (or (empty? ls) (<= (compare v l) 0))
-      (concat acc [v] ls)
-      (recur (conj acc l) (rest ls)))))
-
 (defn next-permutation [input]
   {:pre [(vector? input)]}
   (loop [xs (pop input)
@@ -23,7 +15,7 @@
       #_(println xs y zs smaller-or-equal larger)
       (if (empty? larger)
         (when-not (empty? xs)
-          (recur (pop xs) (peek xs) (add-sorted zs y)))
+          (recur (pop xs) (peek xs) (-> smaller-or-equal (conj y) sort)))
         (concat xs [(first larger)] smaller-or-equal [y] (rest larger))))))
 
 (defn bigger [s]
@@ -33,18 +25,6 @@
 #_(doseq [i (range (Integer/parseInt (read-line)))
           :let [s (read-line)]]
     (-> s bigger (or "no answer") println))
-
-(deftest bigger-is-greater-test []
-  (is (= nil (bigger "a")))
-  (is (= "ba" (bigger "ab")))
-  (is (= nil (bigger "bb")))
-  (is (= "hegf" (bigger "hefg")))
-  (is (= "dhkc" (bigger "dhck")))
-  (is (= "hcdk" (bigger "dkhc")))
-  (is (= "baaa" (bigger "abaa")))
-  (is (= nil (bigger "321")))
-  (is (= "987123456" (bigger "986754321")))
-  )
 
 (s/def ::pos-int (s/and int? #(> % 0)))
 (s/def ::pos-int-str (gen/fmap #(str (if ((complement pos?) %) (-> % (* -1) inc) %)) (s/gen int?)))
@@ -72,3 +52,17 @@
              (every?
               #(not= expected %)
               (map #(-> % str frequencies) between))))))
+
+;; (stest/check `bigger)
+
+(deftest bigger-is-greater-test []
+  (is (= nil (bigger "a")))
+  (is (= "ba" (bigger "ab")))
+  (is (= nil (bigger "bb")))
+  (is (= "hegf" (bigger "hefg")))
+  (is (= "dhkc" (bigger "dhck")))
+  (is (= "hcdk" (bigger "dkhc")))
+  (is (= "baaa" (bigger "abaa")))
+  (is (= nil (bigger "321")))
+  (is (= "987123456" (bigger "986754321")))
+  )
